@@ -1,4 +1,12 @@
+import WordCard from "../components/WordCard";
+
 function Words() {
-  return <div>Words</div>;
+  return (
+    <div>
+      <WordCard />
+      <WordCard />
+      <WordCard />
+    </div>
+  );
 }
 export default Words;

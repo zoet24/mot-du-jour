@@ -1,4 +1,12 @@
+import { Link } from "react-router-dom";
+
 function NavTop() {
-  return <div>NavTop</div>;
+  return (
+    <nav className="bg-blue-200">
+      <div>french flag icon</div>
+      <div>mot du jour</div>
+      <div>logout icon</div>
+    </nav>
+  );
 }
 export default NavTop;
