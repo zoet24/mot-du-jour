@@ -1,22 +1,25 @@
-import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SharedLayout from "./layout/SharedLayout";
+import Access from "./views/Access";
+import Home from "./views/Home";
+import AddWord from "./views/AddWord";
+import Words from "./views/Words";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/sign-up" element={<Access />} />
+            <Route path="/sign-in" element={<Access />} />
+            <Route path="/add-word" element={<AddWord />} />
+            <Route path="/words" element={<Words />} />
+          </Route>
+        </Routes>
+      </Router>
+    </>
   );
 }
 
