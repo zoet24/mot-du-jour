@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SharedLayout from "./layout/SharedLayout";
 import SignUp from "./views/SignUp";
+import SignIn from "./views/SignIn";
 import Home from "./views/Home";
 import AddWord from "./views/AddWord";
 import Words from "./views/Words";
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<SharedLayout />}>
             <Route index element={<Home />} />
             <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/sign-in" element={<SignIn />} />
             <Route path="/add-word" element={<AddWord />} />
             <Route path="/words" element={<Words />} />
           </Route>

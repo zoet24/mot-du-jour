@@ -1,5 +1,7 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { db, auth } from "../firebase.config";
 
 interface formDataState {
   name: string;
@@ -23,14 +25,33 @@ function Access() {
     }));
   };
 
+  const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
   const isSignUp = pathname === "/sign-up";
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      if (userCredential.user) {
+        navigate("/words");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <h1>mot du jour</h1>
-      <form>
+      <form onSubmit={onSubmit}>
         <input
           type="text"
           placeholder="name"

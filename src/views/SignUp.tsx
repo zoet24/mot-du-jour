@@ -58,7 +58,7 @@ function SignUp() {
 
       await setDoc(doc(db, "users", user.uid), formDataCopy);
 
-      navigate("/");
+      navigate("/words");
     } catch (error) {
       console.log(error);
     }
