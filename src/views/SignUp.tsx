@@ -1,6 +1,7 @@
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { db, auth } from "../firebase.config";
 
 interface formDataState {
@@ -48,6 +49,15 @@ function SignUp() {
         });
       }
 
+      const formDataCopy = {
+        name: formData.name,
+        email: formData.email,
+        languages: [],
+        words: [],
+      };
+
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -81,6 +91,7 @@ function SignUp() {
           value={password}
           onChange={onChange}
         />
+        {/* TODO - Remove brs */}
         <br />
         <button>{isSignUp ? "sign up" : "sign in"}</button>
         <br />
