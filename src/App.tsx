@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ContextProvider } from "./context/AppContext";
+
 import SharedLayout from "./layout/SharedLayout";
 import SignUp from "./views/SignUp";
 import SignIn from "./views/SignIn";
@@ -9,17 +11,19 @@ import Words from "./views/Words";
 function App() {
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<SharedLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/add-word" element={<AddWord />} />
-            <Route path="/words" element={<Words />} />
-          </Route>
-        </Routes>
-      </Router>
+      <ContextProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<SharedLayout />}>
+              <Route index element={<Home />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/add-word" element={<AddWord />} />
+              <Route path="/words" element={<Words />} />
+            </Route>
+          </Routes>
+        </Router>
+      </ContextProvider>
     </>
   );
 }

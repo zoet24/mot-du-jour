@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function NavBottom() {
+  const navigate = useNavigate();
+
   return (
-    <nav className="bg-blue-200 absolute bottom-0 left-0 right-0">
-      <Link to="/add-word">add word</Link>
-      <Link to="/words">words</Link>
+    <nav className="bg-blue-200 absolute bottom-0 left-0 right-0 flex justify-evenly">
+      <div onClick={() => navigate("/add-word")}>add word</div>
+      <div onClick={() => navigate("/words")}>words</div>
     </nav>
   );
 }
