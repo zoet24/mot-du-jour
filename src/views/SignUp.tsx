@@ -2,7 +2,7 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { db, auth } from "../firebase.config";
+import { firestore, auth } from "../firebase.config";
 
 interface formDataState {
   name: string;
@@ -56,7 +56,7 @@ function SignUp() {
         words: [],
       };
 
-      await setDoc(doc(db, "users", user.uid), formDataCopy);
+      await setDoc(doc(firestore, "users", user.uid), formDataCopy);
 
       navigate("/words");
     } catch (error) {

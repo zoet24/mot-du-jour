@@ -1,7 +1,7 @@
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { db, auth } from "../firebase.config";
+import { firestore, auth } from "../firebase.config";
 
 interface formDataState {
   name: string;
