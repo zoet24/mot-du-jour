@@ -50,38 +50,43 @@ function Access() {
 
   return (
     <>
-      <h1>mot du jour</h1>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="name"
-          id="name"
-          value={name}
-          onChange={onChange}
-        />
-        <input
-          type="text"
-          placeholder="email"
-          id="email"
-          value={email}
-          onChange={onChange}
-        />
+      <div className="w-full h-screen flex flex-col justify-center items-center">
+        <h1>mot du jour</h1>
+        <form className="text-center" onSubmit={onSubmit}>
+          <input
+            type="text"
+            placeholder="name"
+            id="name"
+            value={name}
+            onChange={onChange}
+            className="w-1/3"
+          />
+          <input
+            type="text"
+            placeholder="email"
+            id="email"
+            value={email}
+            onChange={onChange}
+            className="w-1/3"
+          />
 
-        {/* TODO - Add visibility icon */}
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="password"
-          id="password"
-          value={password}
-          onChange={onChange}
-        />
-        <br />
-        <button>{isSignUp ? "sign up" : "sign in"}</button>
-        <br />
-        <Link to="/forgot-password">Forgot Password?</Link>
-      </form>
+          {/* TODO - Add visibility icon */}
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="password"
+            id="password"
+            value={password}
+            onChange={onChange}
+            className="w-1/3"
+          />
+          <br />
+          <button>{isSignUp ? "sign up" : "sign in"}</button>
+          <br />
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </form>
 
-      {/* TODO - Add Google OAuth, link to sign up/sign in depending on page */}
+        {/* TODO - Add Google OAuth, link to sign up/sign in depending on page */}
+      </div>
     </>
   );
 }

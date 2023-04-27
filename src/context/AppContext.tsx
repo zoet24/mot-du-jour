@@ -16,8 +16,9 @@ interface IUser {
   wordRefs: string[];
 }
 
-interface IWord {
+export interface IWord {
   word: string;
+  wordGB: string;
 }
 
 interface IAppContext {

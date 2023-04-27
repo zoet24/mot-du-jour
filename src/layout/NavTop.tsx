@@ -7,8 +7,6 @@ function NavTop() {
 
   const { user } = useAppContext();
 
-  console.log(user);
-
   const onLogout = () => {
     auth.signOut();
 

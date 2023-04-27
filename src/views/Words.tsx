@@ -1,8 +1,16 @@
-import { useEffect, useState } from "react";
-import { firestore, auth } from "../firebase.config";
-import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { useAppContext } from "../context/AppContext";
+import WordCard from "../components/WordCard";
 
 function Words() {
-  return <div>{auth.currentUser?.displayName}</div>;
+  const { words } = useAppContext();
+
+  return (
+    <>
+      {words &&
+        words.map((word, index) => {
+          return <WordCard key={index} word={word} />;
+        })}
+    </>
+  );
 }
 export default Words;

@@ -1,8 +1,14 @@
-function WordCard() {
+import { IWord } from "../context/AppContext";
+
+interface WordCardProps {
+  word: IWord;
+}
+
+function WordCard({ word }: WordCardProps) {
   return (
     <div>
-      <div>french french french</div>
-      <div>english english english</div>
+      {word["word"]}
+      {word["wordGB"]}
     </div>
   );
 }
