@@ -7,7 +7,14 @@ import { doc, getDoc, collection } from "firebase/firestore";
 interface IUser {
   uid: string;
   name: string;
+  languageRefs: string[];
   wordRefs: string[];
+}
+
+export interface ILanguage {
+  appName: string;
+  flag: string;
+  language: string;
 }
 
 export interface IWord {
@@ -17,12 +24,14 @@ export interface IWord {
 
 interface IAppContext {
   user: IUser | null;
+  languages: ILanguage[];
   words: IWord[];
   addWordToWords: (newWord: IWord) => void;
 }
 
 const AppContext = createContext<IAppContext>({
   user: null,
+  languages: [],
   words: [],
   addWordToWords: () => {},
 });
@@ -37,6 +46,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }) => {
   const [user, setUser] = useState<IUser | null>(null);
+  const [languages, setLanguages] = useState<ILanguage[]>([]);
   const [words, setWords] = useState<IWord[]>([]);
 
   useEffect(() => {
@@ -54,28 +64,54 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
           if (userDoc.exists()) {
             // Set the data in this document to global variable user
             const userData = { uid: authUser.uid, ...userDoc.data() } as IUser;
+            console.log("User Data:", userData); // Debugging
+
             setUser(userData);
 
-            const wordsData = await Promise.all(
-              // Map over all wordRefs in userData
-              userData.wordRefs.map(async (wordRefStr) => {
-                // Split string into collection and document reference, then query firestore
-                const [collectionName, docId] = wordRefStr.split("/").slice(-2);
-                const wordRef = doc(
-                  collection(firestore, collectionName),
-                  docId
-                );
-                const wordDoc = await getDoc(wordRef);
-                return wordDoc.data() as IWord;
-              })
-            );
+            const languagesData = userData.languageRefs
+              ? await Promise.all(
+                  userData.languageRefs.map(async (languageRefStr) => {
+                    console.log("languageRefStr:", languageRefStr); // Debugging
+                    const [collectionName, docId] = languageRefStr
+                      .split("/")
+                      .slice(-2);
+                    const languageRef = doc(
+                      collection(firestore, collectionName),
+                      docId
+                    );
+                    const languageDoc = await getDoc(languageRef);
+                    console.log("languageDoc:", languageDoc); // Debugging
+                    return languageDoc.data() as ILanguage;
+                  })
+                )
+              : [];
+            console.log("languagesData:", languagesData); // Debugging
+            setLanguages(languagesData);
 
-            // Return all wordDocs within wordsData
+            const wordsData = userData.wordRefs
+              ? await Promise.all(
+                  userData.wordRefs.map(async (wordRefStr) => {
+                    console.log("wordRefStr:", wordRefStr); // Debugging
+                    const [collectionName, docId] = wordRefStr
+                      .split("/")
+                      .slice(-2);
+                    const wordRef = doc(
+                      collection(firestore, collectionName),
+                      docId
+                    );
+                    const wordDoc = await getDoc(wordRef);
+                    console.log("wordDoc:", wordDoc); // Debugging
+                    return wordDoc.data() as IWord;
+                  })
+                )
+              : [];
+            console.log("wordsData:", wordsData); // Debugging
             setWords(wordsData);
           }
         } else {
           // User is logged out
           setUser(null);
+          setLanguages([]);
           setWords([]);
         }
       }
@@ -90,7 +126,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   };
 
   return (
-    <AppContext.Provider value={{ user, words, addWordToWords }}>
+    <AppContext.Provider value={{ user, languages, words, addWordToWords }}>
       {children}
     </AppContext.Provider>
   );

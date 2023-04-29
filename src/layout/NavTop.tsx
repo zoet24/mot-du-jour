@@ -5,7 +5,7 @@ import { auth } from "../firebase.config";
 function NavTop() {
   const navigate = useNavigate();
 
-  const { user } = useAppContext();
+  const { user, languages } = useAppContext();
 
   const onLogout = () => {
     auth.signOut();
@@ -15,8 +15,25 @@ function NavTop() {
 
   return (
     <nav className="bg-blue-200 flex justify-evenly">
-      <div>french flag icon</div>
-      <div>{user && user.name} le mot du jour</div>
+      {/* TODO - Language dropdown menu to select current language */}
+      {languages &&
+        languages.map((language, index) => {
+          return (
+            <div
+              className="h-16 w-16 relative rounded-full overflow-hidden"
+              key={index}
+            >
+              <img
+                className="absolute h-full w-full top-0 left-0 right-0 bottom-0"
+                src={language.flag}
+              />
+            </div>
+          );
+        })}
+
+      {/* TODO - replace [0] with current language funcitonality */}
+      <div>{languages[0].appName}</div>
+
       <button type="button" onClick={onLogout}>
         logout icon
       </button>
