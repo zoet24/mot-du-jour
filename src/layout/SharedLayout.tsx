@@ -10,7 +10,7 @@ function SharedLayout() {
   return (
     <>
       {showNav && <NavTop />}
-      <main>
+      <main className="container">
         <Outlet />
       </main>
       {showNav && <NavBottom />}

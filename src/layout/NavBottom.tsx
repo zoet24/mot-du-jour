@@ -5,7 +5,7 @@ function NavBottom() {
   const navigate = useNavigate();
 
   return (
-    <nav className="navbar absolute bottom-0 left-0 right-0">
+    <nav className="navbar fixed bottom-0 left-0 right-0">
       <div className="flex space-x-8 mx-auto">
         <div onClick={() => navigate("/add-word")} className="icon">
           <AiOutlinePlus />

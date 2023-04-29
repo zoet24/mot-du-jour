@@ -15,7 +15,7 @@ function NavTop() {
   };
 
   return (
-    <nav className="navbar">
+    <nav className="navbar fixed top-0 left-0 right-0">
       {/* TODO - Language dropdown menu to select current language */}
       {languages &&
         languages.map((language, index) => {
