@@ -7,8 +7,8 @@ interface WordCardProps {
 function WordCard({ word }: WordCardProps) {
   return (
     <div>
-      {word["word"]}
-      {word["wordGB"]}
+      <p>{word["word"]}</p>
+      <p>{word["wordGB"]}</p>
     </div>
   );
 }
