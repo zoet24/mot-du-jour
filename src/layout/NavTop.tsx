@@ -1,6 +1,7 @@
 import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase.config";
+import { FiLogOut } from "react-icons/fi";
 
 function NavTop() {
   const navigate = useNavigate();
@@ -14,13 +15,13 @@ function NavTop() {
   };
 
   return (
-    <nav className="bg-blue-200 flex justify-evenly">
+    <nav className="navbar">
       {/* TODO - Language dropdown menu to select current language */}
       {languages &&
         languages.map((language, index) => {
           return (
             <div
-              className="h-16 w-16 relative rounded-full overflow-hidden"
+              className="h-12 w-12 rounded-full cursor-pointer relative overflow-hidden "
               key={index}
             >
               <img
@@ -32,10 +33,12 @@ function NavTop() {
         })}
 
       {/* TODO - replace [0] with current language funcitonality */}
-      <div>{languages[0].appName}</div>
+      {/* <h1>{languages[0].appName}</h1> */}
+      <h1>Mot Du Jour</h1>
 
-      <button type="button" onClick={onLogout}>
-        logout icon
+      <button type="button" className="icon" onClick={onLogout}>
+        <FiLogOut />
+        <span className="icon-text">Logout</span>
       </button>
     </nav>
   );

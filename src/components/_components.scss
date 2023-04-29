@@ -1,0 +1,31 @@
+.icon {
+    @apply flex flex-col items-center justify-center cursor-pointer;
+
+    svg {
+        @apply border-black border-2 h-10 w-10 rounded-full p-2;
+    }
+
+    .icon-text {
+        @apply text-black inline-block relative capitalize;
+
+		&:after {
+			@apply bg-black ease-in-out duration-300;
+
+			content: '';
+			position: absolute;
+			width: 100%;
+			transform: scaleX(0);
+			height: 2px;
+			bottom: 0;
+			left: 0;
+			transform-origin: bottom left;
+		}
+    }
+
+    &:hover {
+		.icon-text:after {
+			transform: scaleX(1);
+			transform-origin: bottom left;
+		}
+	}
+}
