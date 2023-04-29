@@ -2,16 +2,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { firestore, auth } from "../firebase.config";
 import { onAuthStateChanged, User as FirebaseAuthUser } from "firebase/auth";
-import {
-  doc,
-  getDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
+import { doc, getDoc, collection } from "firebase/firestore";
 
 interface IUser {
+  uid: string;
   name: string;
   wordRefs: string[];
 }
@@ -24,9 +18,14 @@ export interface IWord {
 interface IAppContext {
   user: IUser | null;
   words: IWord[];
+  addWordToWords: (newWord: IWord) => void;
 }
 
-const AppContext = createContext<IAppContext>({ user: null, words: [] });
+const AppContext = createContext<IAppContext>({
+  user: null,
+  words: [],
+  addWordToWords: () => {},
+});
 
 export const useAppContext = () => useContext(AppContext);
 
@@ -54,7 +53,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
           // If this document exists
           if (userDoc.exists()) {
             // Set the data in this document to global variable user
-            const userData = userDoc.data() as IUser;
+            const userData = { uid: authUser.uid, ...userDoc.data() } as IUser;
             setUser(userData);
 
             const wordsData = await Promise.all(
@@ -85,8 +84,13 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     return () => unsubscribe();
   }, []);
 
+  // Function to add new word to word array
+  const addWordToWords = (newWord: IWord) => {
+    setWords((prevWords) => [...prevWords, newWord]);
+  };
+
   return (
-    <AppContext.Provider value={{ user, words }}>
+    <AppContext.Provider value={{ user, words, addWordToWords }}>
       {children}
     </AppContext.Provider>
   );
