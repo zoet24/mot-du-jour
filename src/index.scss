@@ -4,3 +4,7 @@
 
 @import './components/components';
 @import './layout/layout';
+
+.capitalise::first-letter {
+    @apply uppercase;
+}

@@ -8,10 +8,10 @@ function WordCard({ word }: WordCardProps) {
   return (
     <div className="w-full border-black border-2 rounded-lg overflow-hidden">
       <div className="p-4 bg-blue-200">
-        <p>{word["word"]}</p>
+        <p className="capitalise">{word["word"]}</p>
       </div>
       <div className="p-4">
-        <p>{word["wordGB"]}</p>
+        <p className="capitalise">{word["wordGB"]}</p>
       </div>
     </div>
   );

@@ -27,13 +27,17 @@ interface IAppContext {
   user: IUser | null;
   languages: ILanguage[];
   words: IWord[];
+  appName: string;
   addWordToWords: (newWord: IWord) => void;
 }
+
+const appName = "Le Mot Du Jour";
 
 const AppContext = createContext<IAppContext>({
   user: null,
   languages: [],
   words: [],
+  appName: "Le Mot Du Jour",
   addWordToWords: () => {},
 });
 
@@ -126,7 +130,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   };
 
   return (
-    <AppContext.Provider value={{ user, languages, words, addWordToWords }}>
+    <AppContext.Provider
+      value={{ user, languages, words, appName, addWordToWords }}
+    >
       {children}
     </AppContext.Provider>
   );

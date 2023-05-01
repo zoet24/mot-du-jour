@@ -3,6 +3,7 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { firestore, auth } from "../firebase.config";
+import { useAppContext } from "../context/AppContext";
 
 interface formDataState {
   name: string;
@@ -11,6 +12,7 @@ interface formDataState {
 }
 
 function SignUp() {
+  const { appName } = useAppContext();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState<formDataState>({
     name: "",
@@ -67,15 +69,14 @@ function SignUp() {
   return (
     <>
       <div className="w-full h-screen flex flex-col justify-center items-center">
-        <h1>mot du jour</h1>
-        <form className="text-center" onSubmit={onSubmit}>
+        <h1 className="mb-4">{appName}</h1>
+        <form className="form" onSubmit={onSubmit}>
           <input
             type="text"
             placeholder="name"
             id="name"
             value={name}
             onChange={onChange}
-            className="w-1/3"
           />
           <input
             type="text"
@@ -83,7 +84,6 @@ function SignUp() {
             id="email"
             value={email}
             onChange={onChange}
-            className="w-1/3"
           />
 
           {/* TODO - Add visibility icon */}
@@ -93,14 +93,14 @@ function SignUp() {
             id="password"
             value={password}
             onChange={onChange}
-            className="w-1/3"
           />
-          {/* TODO - Remove brs */}
-          <br />
-          <button>{isSignUp ? "sign up" : "sign in"}</button>
-          <br />
-          <Link to="/forgot-password">Forgot Password?</Link>
+          <button className="btn">Sign up</button>
+          {/* TODO - Add in forgot password functionality */}
+          {/* <Link to="/forgot-password">Forgot Password?</Link> */}
         </form>
+        <Link to="/sign-in" className="mt-2 underline">
+          Sign in
+        </Link>
 
         {/* TODO - Add Google OAuth, link to sign up/sign in depending on page */}
       </div>

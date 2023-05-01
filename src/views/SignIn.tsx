@@ -1,7 +1,8 @@
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { firestore, auth } from "../firebase.config";
+import { auth } from "../firebase.config";
+import { useAppContext } from "../context/AppContext";
 
 interface formDataState {
   name: string;
@@ -10,6 +11,7 @@ interface formDataState {
 }
 
 function Access() {
+  const { appName } = useAppContext();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState<formDataState>({
     name: "",
@@ -26,9 +28,6 @@ function Access() {
   };
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const pathname = location.pathname;
-  const isSignUp = pathname === "/sign-up";
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,23 +50,14 @@ function Access() {
   return (
     <>
       <div className="w-full h-screen flex flex-col justify-center items-center">
-        <h1>mot du jour</h1>
-        <form className="text-center" onSubmit={onSubmit}>
-          <input
-            type="text"
-            placeholder="name"
-            id="name"
-            value={name}
-            onChange={onChange}
-            className="w-1/3"
-          />
+        <h1 className="mb-4">{appName}</h1>
+        <form className="form" onSubmit={onSubmit}>
           <input
             type="text"
             placeholder="email"
             id="email"
             value={email}
             onChange={onChange}
-            className="w-1/3"
           />
 
           {/* TODO - Add visibility icon */}
@@ -77,13 +67,15 @@ function Access() {
             id="password"
             value={password}
             onChange={onChange}
-            className="w-1/3"
           />
-          <br />
-          <button>{isSignUp ? "sign up" : "sign in"}</button>
-          <br />
-          <Link to="/forgot-password">Forgot Password?</Link>
+          <button className="btn">Sign in</button>
+
+          {/* TODO - Add in forgot password functionality */}
+          {/* <Link to="/forgot-password">Forgot Password?</Link> */}
         </form>
+        <Link to="/sign-up" className="mt-2 underline">
+          Sign up
+        </Link>
 
         {/* TODO - Add Google OAuth, link to sign up/sign in depending on page */}
       </div>

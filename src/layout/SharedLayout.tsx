@@ -10,7 +10,7 @@ function SharedLayout() {
   return (
     <>
       {showNav && <NavTop />}
-      <main className="container">
+      <main className={`container ${showNav && `py-32`}`}>
         <Outlet />
       </main>
       {showNav && <NavBottom />}

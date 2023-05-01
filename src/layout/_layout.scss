@@ -1,5 +1,5 @@
 .container {
-    @apply w-full px-8 py-32;
+    @apply w-full px-8 min-h-screen flex items-center;
 }
 
 .navbar {
