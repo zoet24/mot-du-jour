@@ -29,3 +29,15 @@
 		}
 	}
 }
+
+.btn {
+	@apply border-black border-2 w-fit p-2 rounded-lg mx-auto;
+}
+
+.form {
+	@apply flex flex-col space-y-4;
+
+	input {
+		@apply border-black border-2 rounded-lg p-2;
+	}
+}

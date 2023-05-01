@@ -1,7 +1,14 @@
 import { useState, FormEvent } from "react";
 import { useAppContext, IWord } from "../context/AppContext";
 import { firestore } from "../firebase.config";
-import { collection, getDoc, addDoc, updateDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  addDoc,
+  updateDoc,
+  doc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 function AddWord() {
   const { user, addWordToWords } = useAppContext();
@@ -20,6 +27,7 @@ function AddWord() {
       const newWordRef = await addDoc(collection(firestore, "words"), {
         word,
         wordGB,
+        createdAt: serverTimestamp(),
       });
 
       // Update the wordRefs array of the logged-in user
@@ -47,7 +55,7 @@ function AddWord() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Word"
@@ -60,7 +68,9 @@ function AddWord() {
         value={wordGB}
         onChange={(e) => setWordGB(e.target.value)}
       />
-      <button type="submit">Add Word</button>
+      <button className="btn" type="submit">
+        Add Word
+      </button>
     </form>
   );
 }

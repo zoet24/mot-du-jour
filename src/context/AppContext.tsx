@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { firestore, auth } from "../firebase.config";
 import { onAuthStateChanged, User as FirebaseAuthUser } from "firebase/auth";
-import { doc, getDoc, collection } from "firebase/firestore";
+import { doc, getDoc, collection, Timestamp } from "firebase/firestore";
 
 interface IUser {
   uid: string;
@@ -20,6 +20,7 @@ export interface ILanguage {
 export interface IWord {
   word: string;
   wordGB: string;
+  createdAt: Timestamp;
 }
 
 interface IAppContext {
@@ -71,7 +72,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
             const languagesData = userData.languageRefs
               ? await Promise.all(
                   userData.languageRefs.map(async (languageRefStr) => {
-                    console.log("languageRefStr:", languageRefStr); // Debugging
                     const [collectionName, docId] = languageRefStr
                       .split("/")
                       .slice(-2);
@@ -80,32 +80,32 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
                       docId
                     );
                     const languageDoc = await getDoc(languageRef);
-                    console.log("languageDoc:", languageDoc); // Debugging
                     return languageDoc.data() as ILanguage;
                   })
                 )
               : [];
-            console.log("languagesData:", languagesData); // Debugging
             setLanguages(languagesData);
 
             const wordsData = userData.wordRefs
-              ? await Promise.all(
-                  userData.wordRefs.map(async (wordRefStr) => {
-                    console.log("wordRefStr:", wordRefStr); // Debugging
-                    const [collectionName, docId] = wordRefStr
-                      .split("/")
-                      .slice(-2);
-                    const wordRef = doc(
-                      collection(firestore, collectionName),
-                      docId
-                    );
-                    const wordDoc = await getDoc(wordRef);
-                    console.log("wordDoc:", wordDoc); // Debugging
-                    return wordDoc.data() as IWord;
-                  })
-                )
+              ? (
+                  await Promise.all(
+                    userData.wordRefs.map(async (wordRefStr) => {
+                      const [collectionName, docId] = wordRefStr
+                        .split("/")
+                        .slice(-2);
+                      const wordRef = doc(
+                        collection(firestore, collectionName),
+                        docId
+                      );
+                      const wordDoc = await getDoc(wordRef);
+                      return { ...wordDoc.data() } as IWord;
+                    })
+                  )
+                ).sort((a: IWord, b: IWord) => {
+                  // Sort in descending order based on the 'createdAt' timestamp
+                  return b.createdAt.toMillis() - a.createdAt.toMillis();
+                })
               : [];
-            console.log("wordsData:", wordsData); // Debugging
             setWords(wordsData);
           }
         } else {
