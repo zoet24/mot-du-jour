@@ -69,18 +69,18 @@ function SignUp() {
   return (
     <>
       <div className="w-full h-screen flex flex-col justify-center items-center">
-        <h1 className="mb-4">{appName}</h1>
+        <h1>{appName}</h1>
         <form className="form" onSubmit={onSubmit}>
           <input
             type="text"
-            placeholder="name"
+            placeholder="Name"
             id="name"
             value={name}
             onChange={onChange}
           />
           <input
             type="text"
-            placeholder="email"
+            placeholder="Email"
             id="email"
             value={email}
             onChange={onChange}
@@ -89,7 +89,7 @@ function SignUp() {
           {/* TODO - Add visibility icon */}
           <input
             type={showPassword ? "text" : "password"}
-            placeholder="password"
+            placeholder="Password"
             id="password"
             value={password}
             onChange={onChange}

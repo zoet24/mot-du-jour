@@ -15,13 +15,13 @@ function NavTop() {
   };
 
   return (
-    <nav className="navbar fixed top-0 left-0 right-0">
+    <nav className="navbar fixed top-0 left-0 right-0 border-b border-white shadow-card">
       {/* TODO - Language dropdown menu to select current language */}
       {languages &&
         languages.map((language, index) => {
           return (
             <div
-              className="h-12 w-12 rounded-full cursor-pointer relative overflow-hidden "
+              className="h-14 w-14 rounded-full cursor-pointer relative overflow-hidden border-2 border-white"
               key={index}
             >
               <img
@@ -34,7 +34,7 @@ function NavTop() {
 
       {/* TODO - replace [0] with current language funcitonality */}
       {/* <h1>{languages[0].appName}</h1> */}
-      <h1>Mot Du Jour</h1>
+      <h1>Le Mot Du Jour</h1>
 
       <button type="button" className="icon" onClick={onLogout}>
         <FiLogOut />

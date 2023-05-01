@@ -7,7 +7,7 @@ function Home() {
   return (
     <>
       <div className="w-full h-screen flex flex-col justify-center items-center">
-        <h1 className="mb-4">{appName}</h1>
+        <h1>{appName}</h1>
         <div className="space-x-4">
           <Link to="/sign-in" className="btn">
             Sign in

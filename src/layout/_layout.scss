@@ -1,7 +1,11 @@
 .container {
-    @apply w-full px-8 min-h-screen flex items-center;
+    @apply bg-bg w-full px-8 min-h-screen flex items-center;
 }
 
 .navbar {
-    @apply bg-white flex justify-between items-center border-black border-2 p-4;
+    @apply flex justify-between items-center p-4 bg-green;
+
+    h1 {
+        @apply text-2xl mt-3 mb-0 text-center text-white;
+    }
 }

@@ -6,9 +6,9 @@ interface WordCardProps {
 
 function WordCard({ word }: WordCardProps) {
   return (
-    <div className="w-full border-black border-2 rounded-lg overflow-hidden">
-      <div className="p-4 bg-blue-200">
-        <p className="capitalise">{word["word"]}</p>
+    <div className="w-full border-green border-2 rounded-lg overflow-hidden shadow-card">
+      <div className="p-4 bg-green">
+        <p className="capitalise text-white">{word["word"]}</p>
       </div>
       <div className="p-4">
         <p className="capitalise">{word["wordGB"]}</p>

@@ -64,7 +64,7 @@ function AddWord() {
       />
       <input
         type="text"
-        placeholder="Word (GB)"
+        placeholder="Word (English)"
         value={wordGB}
         onChange={(e) => setWordGB(e.target.value)}
       />
