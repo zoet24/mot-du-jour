@@ -58,7 +58,7 @@ function SignUp() {
 
       await setDoc(doc(firestore, "users", user.uid), formDataCopy);
 
-      navigate("/words");
+      navigate("/add-word");
 
       toast.success(`Welcome ${name}!`);
     } catch (error) {

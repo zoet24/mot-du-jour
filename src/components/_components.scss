@@ -32,6 +32,32 @@
 			transform-origin: bottom left;
 		}
 	}
+
+    &--sm {
+        svg {
+            @apply h-8 w-8 p-1.5;
+        }
+    }
+
+    &--secondary {
+        svg {
+            @apply border-green text-green;
+        }
+
+        .icon-text {
+            @apply text-green;
+
+            &:after {
+                @apply bg-green;
+            }
+        }
+
+        &:hover {
+            svg {
+                @apply text-white bg-green;
+            }
+        }
+    }
 }
 
 .btn {

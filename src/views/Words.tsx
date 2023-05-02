@@ -1,4 +1,4 @@
-import { useAppContext } from "../context/AppContext";
+import { useAppContext, IWord } from "../context/AppContext";
 import WordCard from "../components/WordCard";
 import Loading from "../components/Loading";
 
@@ -11,10 +11,16 @@ function Words() {
         <Loading />
       ) : (
         <div className="space-y-4 w-full">
-          {words &&
-            words.map((word, index) => {
-              return <WordCard key={index} word={word} />;
-            })}
+          {words.length > 0 ? (
+            words.map((word: IWord, index: number) => {
+              const wordRefStr = word.wordRefStr;
+              return (
+                <WordCard key={index} word={word} wordRefStr={wordRefStr} />
+              );
+            })
+          ) : (
+            <p className="text-center">Please add some words!</p>
+          )}
         </div>
       )}
     </>

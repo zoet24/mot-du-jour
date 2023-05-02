@@ -41,8 +41,14 @@ function AddWord() {
       const newWordDoc = await getDoc(newWordRef);
       const newWordData = newWordDoc.data() as IWord;
 
+      // Add the wordRefStr property to the word object
+      const newWordDataWithRefStr = {
+        ...newWordData,
+        wordRefStr: newWordRef.path,
+      };
+
       // Update the global words state
-      addWordToWords(newWordData);
+      addWordToWords(newWordDataWithRefStr);
 
       // Clear the input fields
       setWord("");

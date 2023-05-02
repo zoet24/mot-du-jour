@@ -1,8 +1,14 @@
-// AppContext.tsx
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { firestore, auth } from "../firebase.config";
 import { onAuthStateChanged, User as FirebaseAuthUser } from "firebase/auth";
-import { doc, getDoc, collection, Timestamp } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  collection,
+  Timestamp,
+  deleteDoc,
+} from "firebase/firestore";
 
 interface IUser {
   uid: string;
@@ -21,6 +27,7 @@ export interface IWord {
   word: string;
   wordGB: string;
   createdAt: Timestamp;
+  wordRefStr?: string;
 }
 
 interface IAppContext {
@@ -30,6 +37,7 @@ interface IAppContext {
   appName: string;
   loading: boolean;
   addWordToWords: (newWord: IWord) => void;
+  deleteWord: (wordRefStr: string) => Promise<void>;
 }
 
 const appName = "Le Mot Du Jour";
@@ -41,6 +49,7 @@ const AppContext = createContext<IAppContext>({
   appName: "Le Mot Du Jour",
   loading: true,
   addWordToWords: () => {},
+  deleteWord: () => Promise.resolve(),
 });
 
 export const useAppContext = () => useContext(AppContext);
@@ -106,7 +115,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
                         docId
                       );
                       const wordDoc = await getDoc(wordRef);
-                      return { ...wordDoc.data() } as IWord;
+                      return { ...wordDoc.data(), wordRefStr } as IWord; // Add the wordRefStr property here
                     })
                   )
                 ).sort((a: IWord, b: IWord) => {
@@ -132,12 +141,63 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
   // Function to add new word to word array
   const addWordToWords = (newWord: IWord) => {
-    setWords((prevWords) => [...prevWords, newWord]);
+    setWords((prevWords) => {
+      const updatedWords = [...prevWords, newWord];
+      return updatedWords.sort((a, b) => {
+        if (a.createdAt?.seconds && b.createdAt?.seconds) {
+          return b.createdAt.seconds - a.createdAt.seconds;
+        }
+        return 0;
+      });
+    });
+  };
+
+  // Function to delete word from database
+  const deleteWord = async (wordRefStr: string) => {
+    setLoading(true);
+
+    // Update the words state.
+    setWords((prevWords) =>
+      prevWords.filter((word) => wordRefStr !== word.wordRefStr)
+    );
+
+    // Delete the word from the Firestore database and update the user document.
+    const [collectionName, docId] = wordRefStr.split("/").slice(-2);
+    const wordRef = doc(collection(firestore, collectionName), docId);
+    await deleteDoc(wordRef);
+
+    // Remove the wordRef from the user's wordRefs
+    const newUserWordRefs = user?.wordRefs.filter((ref) => ref !== wordRefStr);
+    if (newUserWordRefs) {
+      const userRef = doc(collection(firestore, "users"), user!.uid);
+      await updateDoc(userRef, { wordRefs: newUserWordRefs });
+
+      // Update the user state
+      setUser((prevUser) => {
+        if (prevUser) {
+          return {
+            ...prevUser,
+            wordRefs: newUserWordRefs,
+          };
+        }
+        return prevUser;
+      });
+    }
+
+    setLoading(false);
   };
 
   return (
     <AppContext.Provider
-      value={{ user, languages, words, appName, loading, addWordToWords }}
+      value={{
+        user,
+        languages,
+        words,
+        appName,
+        loading,
+        addWordToWords,
+        deleteWord,
+      }}
     >
       {children}
     </AppContext.Provider>
