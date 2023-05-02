@@ -28,6 +28,7 @@ interface IAppContext {
   languages: ILanguage[];
   words: IWord[];
   appName: string;
+  loading: boolean;
   addWordToWords: (newWord: IWord) => void;
 }
 
@@ -38,6 +39,7 @@ const AppContext = createContext<IAppContext>({
   languages: [],
   words: [],
   appName: "Le Mot Du Jour",
+  loading: true,
   addWordToWords: () => {},
 });
 
@@ -53,12 +55,15 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [user, setUser] = useState<IUser | null>(null);
   const [languages, setLanguages] = useState<ILanguage[]>([]);
   const [words, setWords] = useState<IWord[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     // On login/logout
     const unsubscribe = onAuthStateChanged(
       auth,
       async (authUser: FirebaseAuthUser | null) => {
+        setLoading(true);
+
         // If user is logged in
         if (authUser) {
           // Look in users collection for the user document that matches the uid of the logged in user
@@ -117,6 +122,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
           setLanguages([]);
           setWords([]);
         }
+
+        setLoading(false);
       }
     );
 
@@ -130,7 +137,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
   return (
     <AppContext.Provider
-      value={{ user, languages, words, appName, addWordToWords }}
+      value={{ user, languages, words, appName, loading, addWordToWords }}
     >
       {children}
     </AppContext.Provider>
