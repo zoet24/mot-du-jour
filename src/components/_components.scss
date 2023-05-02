@@ -80,6 +80,18 @@
 	}
 }
 
+.modal {
+    @apply fixed inset-0 flex items-center justify-center z-50;
+
+    .modal-overlay {
+        @apply absolute inset-0 bg-black opacity-50;
+    }
+
+    .modal-body {
+        @apply absolute text-center mx-4 bg-white px-8 py-4 space-y-2 rounded-lg border border-grey;
+    }
+}
+
 // Overwriting default toast styling
 #root .Toastify {
 	&__toast-container--top-right {
