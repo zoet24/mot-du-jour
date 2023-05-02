@@ -2,6 +2,7 @@ import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase.config";
 import { FiLogOut } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 function NavTop() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ function NavTop() {
     auth.signOut();
 
     navigate("/");
+
+    toast.success("See you tomorrow!");
   };
 
   return (

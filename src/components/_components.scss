@@ -53,3 +53,54 @@
 		}
 	}
 }
+
+// Overwriting default toast styling
+#root .Toastify {
+	&__toast-container--top-right {
+		@apply top-2 right-2 left-auto w-3/4;
+	}
+
+    &__toast-theme--light {
+        @apply bg-white text-black mb-2 rounded-lg shadow-card border border-grey font-body;
+    }
+
+    &__toast--info {
+		.Toastify__progress-bar {
+            @apply bg-purple;
+        }
+
+        .Toastify__toast-icon svg {
+            @apply fill-purple;
+        }
+    }
+
+    &__toast--error {
+	    .Toastify__progress-bar {
+            @apply bg-red;
+        }
+
+        .Toastify__toast-icon svg {
+            @apply fill-red;
+        }
+    }
+
+    &__toast--success {
+        .Toastify__progress-bar {
+            @apply bg-green;
+        }
+
+        .Toastify__toast-icon svg {
+            @apply fill-green;
+        }
+    }
+
+    &__toast--warning {
+		.Toastify__progress-bar {
+            @apply bg-yellow;
+        }
+
+        .Toastify__toast-icon svg {
+            @apply fill-yellow;
+        }
+    }
+}

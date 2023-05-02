@@ -69,7 +69,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
           if (userDoc.exists()) {
             // Set the data in this document to global variable user
             const userData = { uid: authUser.uid, ...userDoc.data() } as IUser;
-            console.log("User Data:", userData); // Debugging
 
             setUser(userData);
 

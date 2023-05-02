@@ -3,6 +3,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase.config";
 import { useAppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 interface formDataState {
   name: string;
@@ -42,8 +43,10 @@ function Access() {
       if (userCredential.user) {
         navigate("/words");
       }
+
+      toast.success(`Welcome ${name}!`);
     } catch (error) {
-      console.log(error);
+      toast.error("User credentials not found.");
     }
   };
 

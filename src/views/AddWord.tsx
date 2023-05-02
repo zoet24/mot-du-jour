@@ -9,6 +9,7 @@ import {
   doc,
   serverTimestamp,
 } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 function AddWord() {
   const { user, addWordToWords } = useAppContext();
@@ -18,7 +19,7 @@ function AddWord() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!user) {
-      alert("Please sign in to add a word.");
+      toast.error("Please sign in to add a word.");
       return;
     }
 
@@ -47,10 +48,10 @@ function AddWord() {
       setWord("");
       setWordGB("");
 
-      alert("Word added successfully!");
+      toast.success("Word added successfully!");
     } catch (error) {
       console.error("Error adding word: ", error);
-      alert("Failed to add word.");
+      toast.error("Error adding word.");
     }
   };
 

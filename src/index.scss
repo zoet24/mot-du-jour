@@ -8,15 +8,11 @@
 @import './layout/layout';
 
 h1 {
-    font-family: 'Braah One', sans-serif;
-
-    @apply text-4xl mb-6 text-green;
+    @apply font-heading text-4xl mb-6 text-green;
 }
 
 body {
-    font-family: 'Quicksand', sans-serif;
-
-    font-weight: 500;
+    @apply font-body font-medium;
 }
 
 .capitalise::first-letter {

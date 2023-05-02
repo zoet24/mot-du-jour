@@ -1,9 +1,10 @@
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { firestore, auth } from "../firebase.config";
 import { useAppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 interface formDataState {
   name: string;
@@ -30,9 +31,6 @@ function SignUp() {
   };
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const pathname = location.pathname;
-  const isSignUp = pathname === "/sign-up";
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,15 +52,17 @@ function SignUp() {
       const formDataCopy = {
         name: formData.name,
         email: formData.email,
-        languages: [],
+        languageRefs: ["languages/cJq0z6mPy9a6dYm4mtdF"], // TODO - Remove automatically setting language to French and replace with menu for user to choose
         wordRefs: [],
       };
 
       await setDoc(doc(firestore, "users", user.uid), formDataCopy);
 
       navigate("/words");
+
+      toast.success(`Welcome ${name}!`);
     } catch (error) {
-      console.log(error);
+      toast.error("Error adding user.");
     }
   };
 

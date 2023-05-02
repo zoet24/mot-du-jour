@@ -14,7 +14,13 @@ module.exports = {
       bg: "#fff7f1",
       purple: "#3e1c6c",
       black: "#000000",
+      grey: "#9ca3af",
       white: "#ffffff",
+      red: "#dc3b2b",
+    },
+    fontFamily: {
+      body: ["Quicksand", "sans-serif"],
+      heading: ["Braah One", "sans-serif"],
     },
     extend: {},
   },

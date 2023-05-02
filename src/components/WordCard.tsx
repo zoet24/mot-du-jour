@@ -6,7 +6,7 @@ interface WordCardProps {
 
 function WordCard({ word }: WordCardProps) {
   return (
-    <div className="w-full border-green border-2 rounded-lg overflow-hidden shadow-card">
+    <div className="w-full bg-white border-green border-2 rounded-lg overflow-hidden shadow-card">
       <div className="p-4 bg-green">
         <p className="capitalise text-white">{word["word"]}</p>
       </div>

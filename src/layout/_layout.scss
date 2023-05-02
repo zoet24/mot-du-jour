@@ -1,5 +1,5 @@
 .container {
-    @apply bg-bg w-full px-8 min-h-screen flex items-center;
+    @apply bg-bg w-full px-8 min-h-screen max-w-none flex items-center;
 }
 
 .navbar {
