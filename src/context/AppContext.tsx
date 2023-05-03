@@ -27,6 +27,7 @@ export interface IWord {
   word: string;
   wordGB: string;
   createdAt: Timestamp;
+  wordRef?: string;
   wordRefStr?: string;
 }
 
@@ -37,6 +38,7 @@ interface IAppContext {
   appName: string;
   loading: boolean;
   addWordToWords: (newWord: IWord) => void;
+  updateWordInWords: (updatedWord: IWord, wordRefStr: string) => void;
   deleteWord: (wordRefStr: string) => Promise<void>;
 }
 
@@ -49,6 +51,7 @@ const AppContext = createContext<IAppContext>({
   appName: "Le Mot Du Jour",
   loading: true,
   addWordToWords: () => {},
+  updateWordInWords: () => {},
   deleteWord: () => Promise.resolve(),
 });
 
@@ -115,7 +118,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
                         docId
                       );
                       const wordDoc = await getDoc(wordRef);
-                      return { ...wordDoc.data(), wordRefStr } as IWord; // Add the wordRefStr property here
+                      return { ...wordDoc.data(), wordRefStr } as IWord;
                     })
                   )
                 ).sort((a: IWord, b: IWord) => {
@@ -148,6 +151,19 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
           return b.createdAt.seconds - a.createdAt.seconds;
         }
         return 0;
+      });
+    });
+  };
+
+  // Function to update word in database
+  const updateWordInWords = (updatedWord: IWord, wordRefStr: string) => {
+    setWords((prevWords) => {
+      return prevWords.map((word) => {
+        if (word.wordRef === wordRefStr) {
+          return { ...updatedWord, wordRef: wordRefStr };
+        } else {
+          return word;
+        }
       });
     });
   };
@@ -196,6 +212,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
         appName,
         loading,
         addWordToWords,
+        updateWordInWords,
         deleteWord,
       }}
     >

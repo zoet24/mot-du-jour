@@ -2,7 +2,7 @@
     @apply flex flex-col items-center justify-center cursor-pointer;
 
     svg {
-        @apply border-white text-white border-2 h-10 w-10 rounded-full p-2 ease-in-out duration-300;
+        @apply bg-green border-white text-white border-2 h-10 w-10 rounded-full p-2 ease-in-out duration-300;
     }
 
     .icon-text {
@@ -24,7 +24,7 @@
 
     &:hover {
 		svg {
-			@apply text-green bg-white;
+			@apply text-green bg-white border-green;
 		}
 
 		.icon-text:after {
@@ -41,20 +41,20 @@
 
     &--secondary {
         svg {
-            @apply border-green text-green;
+            @apply border-white text-green bg-white;
         }
 
         .icon-text {
-            @apply text-green;
+            @apply text-white;
 
             &:after {
-                @apply bg-green;
+                @apply bg-white;
             }
         }
 
         &:hover {
             svg {
-                @apply text-white bg-green;
+                @apply border-white text-green bg-white;
             }
         }
     }
