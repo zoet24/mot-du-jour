@@ -79,7 +79,7 @@ function SignUp() {
             onChange={onChange}
           />
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             id="email"
             value={email}

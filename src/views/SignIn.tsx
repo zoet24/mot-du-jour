@@ -56,7 +56,7 @@ function Access() {
         <h1>{appName}</h1>
         <form className="form" onSubmit={onSubmit}>
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             id="email"
             value={email}
@@ -72,12 +72,12 @@ function Access() {
             onChange={onChange}
           />
           <button className="btn">Sign in</button>
-
-          {/* TODO - Add in forgot password functionality */}
-          {/* <Link to="/forgot-password">Forgot Password?</Link> */}
         </form>
         <Link to="/sign-up" className="mt-2 underline">
           Sign up
+        </Link>
+        <Link to="/forgot-password" className="mt-2 underline">
+          Forgot password?
         </Link>
 
         {/* TODO - Add Google OAuth, link to sign up/sign in depending on page */}

@@ -8,20 +8,21 @@ A React, TypeScript and Google Firebase site to store useful phrases for users w
 
 - ~~Add React Toastify to improve app feedback UX (success messages, error handling etc) - 2/5~~
 - Add Google OAuth and Forgot Password options on Sign In/Up pages - 2/5
-- Add in private routes - 2/5
+- ~~Add in private routes - 2/5~~
 - ~~Set default as French (for now..), get rid of user bug - 2/5~~
 - ~~Add loading global variable - 2/5~~
 
 ### Sprint 3
 
-- Add edit/delete functionality with saved words - 3/5
-- Clean up of code, comments, build out README.md - 3/5
-- Add more styling (responsive) - 3/5
+- ~~Add edit/delete functionality with saved words - 3/5~~
+- Clean up of code, comments, build out README.md - 4/5
 
 ### Sprint 4
 
-- Add categories option to Add Word page - 3/5
-- Add search/sorting functionality with saved words - 4/5
+- Add categories option to Add Word page
+- Add search functionality with saved words
+- Add sorting functionality with saved words
+- Add more content to WordCard components (ie. use word in a sentence, synonyms, pronunciation etc)
 
 ### Sprint 5
 
