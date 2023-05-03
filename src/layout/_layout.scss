@@ -1,9 +1,17 @@
+#root {
+    @apply bg-bg;
+}
+
 .container {
-    @apply bg-bg w-full px-8 min-h-screen max-w-none flex items-center;
+    @apply w-full px-8 mx-auto min-h-screen max-w-xl flex items-center;
 }
 
 .navbar {
-    @apply flex justify-between items-center p-4 bg-green;
+    @apply p-4 bg-green;
+
+    .nav {
+        @apply flex justify-between items-center max-w-2xl mx-auto;
+    }
 
     h1 {
         @apply text-2xl mt-3 mb-0 text-center text-white;

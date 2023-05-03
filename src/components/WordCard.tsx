@@ -56,10 +56,7 @@ function WordCard({ word, wordRefStr }: WordCardProps) {
   };
 
   const handleSaveClick = async () => {
-    if (
-      wordRefStr &&
-      (editedWord !== word.word || editedWordGB !== word.wordGB)
-    ) {
+    if (wordRefStr) {
       try {
         const [collectionName, docId] = wordRefStr.split("/").slice(-2);
         const wordRef = doc(firestore, collectionName, docId);
@@ -92,7 +89,7 @@ function WordCard({ word, wordRefStr }: WordCardProps) {
   return (
     <div
       onClick={() => setShowButtons((prev) => !prev)}
-      className="relative w-full bg-white border-green border-2 rounded-lg shadow-card overflow-hidden"
+      className="relative w-full bg-white border-green border-2 rounded-lg shadow-card overflow-hidden cursor-pointer"
     >
       {/* Word FR */}
       <div className="p-2 bg-green">

@@ -6,14 +6,16 @@ function NavBottom() {
 
   return (
     <nav className="navbar fixed bottom-0 left-0 right-0 border-t border-white">
-      <div className="flex space-x-8 mx-auto">
-        <div onClick={() => navigate("/add-word")} className="icon">
-          <AiOutlinePlus />
-          <span className="icon-text">Add word</span>
-        </div>
-        <div onClick={() => navigate("/words")} className="icon">
-          <AiOutlineUnorderedList />
-          <span className="icon-text">View words</span>
+      <div className="nav">
+        <div className="flex space-x-8 mx-auto">
+          <div onClick={() => navigate("/add-word")} className="icon">
+            <AiOutlinePlus />
+            <span className="icon-text">Add word</span>
+          </div>
+          <div onClick={() => navigate("/words")} className="icon">
+            <AiOutlineUnorderedList />
+            <span className="icon-text">View words</span>
+          </div>
         </div>
       </div>
     </nav>
