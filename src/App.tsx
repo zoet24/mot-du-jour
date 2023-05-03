@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import PrivateRoute from "./components/PrivateRoute";
 import SharedLayout from "./layout/SharedLayout";
 import SignUp from "./views/SignUp";
 import SignIn from "./views/SignIn";
@@ -16,8 +16,12 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/add-word" element={<AddWord />} />
-            <Route path="/words" element={<Words />} />
+            <Route path="/add-word" element={<PrivateRoute />}>
+              <Route path="/add-word" element={<AddWord />} />
+            </Route>
+            <Route path="/words" element={<PrivateRoute />}>
+              <Route path="/words" element={<Words />} />
+            </Route>
           </Route>
         </Routes>
       </Router>
