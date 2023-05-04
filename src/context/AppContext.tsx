@@ -69,8 +69,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [words, setWords] = useState<IWord[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  // On login/logout load in initial state
   useEffect(() => {
-    // On login/logout
     const unsubscribe = onAuthStateChanged(
       auth,
       async (authUser: FirebaseAuthUser | null) => {
@@ -177,7 +177,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       prevWords.filter((word) => wordRefStr !== word.wordRefStr)
     );
 
-    // Delete the word from the Firestore database and update the user document.
+    // Delete the word from the Firestore database and updates the user document
     const [collectionName, docId] = wordRefStr.split("/").slice(-2);
     const wordRef = doc(collection(firestore, collectionName), docId);
     await deleteDoc(wordRef);

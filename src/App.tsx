@@ -18,12 +18,9 @@ function App() {
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/add-word" element={<PrivateRoute />}>
-              <Route path="/add-word" element={<AddWord />} />
-            </Route>
-            <Route path="/words" element={<PrivateRoute />}>
-              <Route path="/words" element={<Words />} />
-            </Route>
+            {/* Add in private routes */}
+            <Route path="/add-word" element={<AddWord />} />
+            <Route path="/words" element={<Words />} />
           </Route>
         </Routes>
       </Router>

@@ -95,7 +95,7 @@
 // Overwriting default toast styling
 #root .Toastify {
 	&__toast-container--top-right {
-		@apply top-2 right-2 left-auto w-3/4;
+		@apply top-2 right-2 left-auto w-3/4 max-w-md;
 	}
 
     &__toast-theme--light {

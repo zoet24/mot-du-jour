@@ -1,9 +1,18 @@
 import { useAppContext, IWord } from "../context/AppContext";
 import WordCard from "../components/WordCard";
 import Loading from "../components/Loading";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 function Words() {
   const { loading, words } = useAppContext();
+
+  useEffect(() => {
+    console.log("Hello");
+    toast.info("Edit and delete words by clicking on the card", {
+      autoClose: 5000,
+    });
+  }, []);
 
   return (
     <>
